@@ -1,0 +1,53 @@
+/* ==========================================================================
+   GIPHY Button - Styles
+   ========================================================================== */
+
+/* GIF container
+   ========================================================================== */
+
+.giphy-button__gif {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.giphy-button__gif > img {
+  height: auto;
+  max-width: 100%;
+}
+
+
+/* ARIA Visually Hidden Text
+   ========================================================================== */
+
+/**
+ * Hides content to visual users, but leaves it accessible to screen reader
+ * users. The combination of these properties will ensure that the element
+ * is truly hidden and not getting smushed in the corner of the screen.
+ * 
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ * 
+ * 1. For long content, line feeds are not interpreted as spaces and small
+ *    width causes content to wrap 1 word per line:
+ * 
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+ .visually-hidden {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap; /* 1 */
+  width: 1px;
+}
