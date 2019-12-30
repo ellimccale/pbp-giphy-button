@@ -95,11 +95,11 @@
                 },
             },
             draggable: true,
-            height: 350,
+            height: 353,
             html: _buildDialogContent(),
             resizable: true,
             title: 'Insert GIF',
-            width: 500,
+            width: 400,
 
         });
 
@@ -113,10 +113,13 @@
         });
 
         var $searchLabel = $('<label>')
-            .attr('class', 'visually-hidden')
-            .text('Search GIPHY');
+            .attr({
+                class: 'visually-hidden',
+                for: ELEMENT_ID + '-search-field',
+            }).text('Enter a search term');
 
         var $searchField = $('<input>').attr({
+            id: ELEMENT_ID + '-search-field',
             class: ELEMENT_ID + '__search-field',
             type: 'search',
             placeholder: 'Search GIPHY',
@@ -125,11 +128,13 @@
         var $searchButton = $('<button>').attr({
             class: ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--search',
             type: 'button',
-        }).html('<img src="' + images.iconsearch21x22 + '" alt="">');
+            title: 'Search GIPHY',
+        }).html('<img src="' + images.iconsearch20x20 + '" alt="" aria-hidden="true">');
 
         var $shuffleButton = $('<button>').attr({
             class: ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--shuffle',
             type: 'button',
+            title: 'Shuffle gifs based on the current search term',
         }).text('Shuffle');
 
         var searchVal = '';
@@ -139,10 +144,15 @@
             var currentVal = $searchField.val();
 
             if (searchVal !== currentVal) {
+
                 searchVal = currentVal;
+
+                $gifContainer.height(210);
+
                 _fetchGifs(searchVal, function(gifs) {
                     $gifContainer.html(_generateRandomGif(gifs));
                 });
+
             }
 
         });
@@ -183,11 +193,11 @@
 
                 var gifs = [];
 
-                $.each(data, function(index, value) {
+                $.each(data, function(index, giphy) {
 
                     var $newImage = $('<img>').attr({
                         'alt': '',
-                        'src': value.images.fixed_height.url,
+                        'src': giphy.images.fixed_height.url,
                     });
 
                     gifs.push($newImage);

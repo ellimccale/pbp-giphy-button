@@ -1,11 +1,11 @@
 /* ==========================================================================
-   GIPHY Button - Styles
-   ========================================================================== */
+  GIPHY Button - Styles
+  ========================================================================== */
 
 /* GIF Container
-   ========================================================================== */
+  ========================================================================== */
 
-.giphy-button__gif {
+  .giphy-button__gif {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -19,47 +19,65 @@
 
 .giphy-button__gif > img {
   height: auto;
+  margin-bottom: 10px;
   max-width: 100%;
 }
 
 
 /* GIF Search
-   ========================================================================== */
+    ========================================================================== */
 
 .giphy-button__search-field {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: none;
+  background: #fff;
   border: 1px solid #979797;
   border-right-width: 0;
   border-radius: 3px 0 0 3px;
   -webkit-box-shadow: none;
   box-shadow: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #222;
   display: inline-block;
   font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.025em;
   height: 36px;
   padding: 10px;
   vertical-align: top;
-  /* width: 100%; */
+  word-spacing: 0.16em;
 }
 
 .giphy-button__search-field::placeholder {
   color: #a8a8a8;
 }
 
-/* Buttons */
+.giphy-button__search-field:active,
+.giphy-button__search-field:focus {
+  border-bottom-color: #bb00ff;
+  border-left-color: #bb00ff;
+  border-top-color: #ff0090;
+}
+
+/* --- Buttons --- */
 
 .giphy-button__button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: none;
+  background: #fff;
   border: 1px solid #979797;
   border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #222;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.025em;
   padding: 10px;
   height: 36px;
   line-height: 1 !important;
@@ -67,6 +85,7 @@
   min-height: auto;
   text-decoration: none;
   vertical-align: top;
+  word-spacing: 0.16em;
 }
 
 .giphy-button__button:hover,
@@ -77,7 +96,7 @@
   text-decoration: none;
 }
 
-/* Search Button */
+/* --- Search Button --- */
 
 .giphy-button__button--search {
   background: #ff0090;
@@ -86,7 +105,7 @@
   background: linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
   border: 0;
   border-radius: 0 3px 3px 0;
-  padding: 7px 8px 7px 7px;
+  padding: 8px 8px 8px 9px;
 }
 
 .giphy-button__button--search:hover,
@@ -98,30 +117,42 @@
   border: 0;
 }
 
-/* Shuffle Button */
+/* --- Shuffle Button --- */
 
 .giphy-button__button--shuffle {
   margin-left: 10px;
+  -webkit-transition: border 0.2s ease, color 0.2s ease;
+  -o-transition: border 0.2s ease, color 0.2s ease;
+  transition: border 0.2s ease, color 0.2s ease;
+}
+
+.giphy-button__button--shuffle:hover,
+.giphy-button__button--shuffle:focus {
+  border-bottom-color: #bb00ff;
+  border-left-color: #bb00ff;
+  border-right-color: #ff0090;
+  border-top-color: #ff0090;
+  color: #ff0090;
 }
 
 
 /* ARIA Visually Hidden Text
-   ========================================================================== */
+    ========================================================================== */
 
 /**
- * Hides content to visual users, but leaves it accessible to screen reader
- * users. The combination of these properties will ensure that the element
- * is truly hidden and not getting smushed in the corner of the screen.
- * 
- * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- * 
- * 1. For long content, line feeds are not interpreted as spaces and small
- *    width causes content to wrap 1 word per line:
- * 
- *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
- */
+  * Hides content to visual users, but leaves it accessible to screen reader
+  * users. The combination of these properties will ensure that the element
+  * is truly hidden and not getting smushed in the corner of the screen.
+  * 
+  * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+  * 
+  * 1. For long content, line feeds are not interpreted as spaces and small
+  *    width causes content to wrap 1 word per line:
+  * 
+  *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+  */
 
- .visually-hidden {
+  .visually-hidden {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
