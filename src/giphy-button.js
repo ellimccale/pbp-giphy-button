@@ -67,7 +67,7 @@
             class: 'button button-insertGif',
             title: 'Insert GIF',
             'data-control': 'insertGif',
-        }).html('<img alt="" src="' + images.gifbutton + '">');
+        }).html('<img alt="" src="' + images.buttongiphypb26x22 + '">');
 
         $gifButton.on('click', function() {
             $('#' + DIALOG_ID).dialog('open');
@@ -123,12 +123,12 @@
         });
 
         var $searchButton = $('<button>').attr({
-            class: ELEMENT_ID + '__search-button',
+            class: ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--search',
             type: 'button',
-        }).text('Search');
+        }).html('<img src="' + images.iconsearch21x22 + '" alt="">');
 
         var $shuffleButton = $('<button>').attr({
-            class: ELEMENT_ID + '__shuffle-button',
+            class: ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--shuffle',
             type: 'button',
         }).text('Shuffle');
 

@@ -2,7 +2,7 @@
    GIPHY Button - Styles
    ========================================================================== */
 
-/* GIF container
+/* GIF Container
    ========================================================================== */
 
 .giphy-button__gif {
@@ -12,14 +12,96 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: flex-start;
+  -ms-flex-pack: flex-start;
+  justify-content: flex-start;
 }
 
 .giphy-button__gif > img {
   height: auto;
   max-width: 100%;
+}
+
+
+/* GIF Search
+   ========================================================================== */
+
+.giphy-button__search-field {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: 1px solid #979797;
+  border-right-width: 0;
+  border-radius: 3px 0 0 3px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  display: inline-block;
+  font-size: 14px;
+  height: 36px;
+  padding: 10px;
+  vertical-align: top;
+  /* width: 100%; */
+}
+
+.giphy-button__search-field::placeholder {
+  color: #a8a8a8;
+}
+
+/* Buttons */
+
+.giphy-button__button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: 1px solid #979797;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  padding: 10px;
+  height: 36px;
+  line-height: 1 !important;
+  margin: 0;
+  min-height: auto;
+  text-decoration: none;
+  vertical-align: top;
+}
+
+.giphy-button__button:hover,
+.giphy-button__button:focus {
+  background: none;
+  border: 1px solid #979797;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/* Search Button */
+
+.giphy-button__button--search {
+  background: #ff0090;
+  background: -moz-linear-gradient(45deg, #bb00ff 0%, #ff0090 100%);
+  background: -webkit-linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+  background: linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+  border: 0;
+  border-radius: 0 3px 3px 0;
+  padding: 7px 8px 7px 7px;
+}
+
+.giphy-button__button--search:hover,
+.giphy-button__button--search:focus {
+  background: #ff0090;
+  background: -moz-linear-gradient(45deg, #bb00ff 0%, #ff0090 100%);
+  background: -webkit-linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+  background: linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+  border: 0;
+}
+
+/* Shuffle Button */
+
+.giphy-button__button--shuffle {
+  margin-left: 10px;
 }
 
 
