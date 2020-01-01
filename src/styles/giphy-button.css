@@ -27,6 +27,12 @@
 /* GIF Search
     ========================================================================== */
 
+.giphy-button__search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .giphy-button__search-field {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -41,13 +47,15 @@
   box-sizing: border-box;
   color: #222;
   display: inline-block;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: 0.025em;
   height: 36px;
   padding: 10px;
   vertical-align: top;
-  word-spacing: 0.16em;
 }
 
 .giphy-button__search-field::placeholder {
@@ -75,6 +83,8 @@
   color: #222;
   cursor: pointer;
   display: inline-block;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: 0.025em;
@@ -85,7 +95,6 @@
   min-height: auto;
   text-decoration: none;
   vertical-align: top;
-  word-spacing: 0.16em;
 }
 
 .giphy-button__button:hover,

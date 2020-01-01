@@ -50,22 +50,23 @@
 
                 wysiwyg = $(e.target).data('wysiwyg');
 
-                _buildGifButton();
+                _buildButton();
                 _buildDialog();
+                _handleSearch();
 
             });
         }
 
     }
 
-    function _buildGifButton() {
+    function _buildButton() {
 
         var $editorControls = $('.controls .visual-editor, .controls .bbcode-editor');
         var $imageButton = $editorControls.find('[data-control="insertImage"]');
 
-        var $gifButton = $('<li>').attr({
-            class: 'button button-insertGif',
-            title: 'Insert GIF',
+        var $gifButton = $('<li>', {
+            'class': 'button button-insertGif',
+            'title': 'Insert GIF',
             'data-control': 'insertGif',
         }).html('<img alt="" src="' + images.buttongiphypb26x22 + '">');
 
@@ -85,7 +86,7 @@
             buttons: {
                 'Insert GIF': function() {
 
-                    var gif = $('#js-' + ELEMENT_ID + '-gif ').find('img').attr('src');
+                    var gif = $('#js-' + ELEMENT_ID + '-gif').find('img').attr('src');
 
                     if (gif) {
                         _insertGif(gif);
@@ -107,37 +108,47 @@
 
     function _buildDialogContent() {
 
-        var $gifContainer = $('<div>').attr({
-            id: 'js-' + ELEMENT_ID + '-gif',
-            class: ELEMENT_ID + '__gif',
-        });
+        var content = [
+            '<div id="js-' + ELEMENT_ID + '-gif" class="' + ELEMENT_ID + '__gif"></div>',
+            '<div class="' + ELEMENT_ID + '__search">',
+            '  <label class="visually-hidden" for="js-' + ELEMENT_ID + '-search-field">Enter a search term</label>',
+            '  <input id="js-' + ELEMENT_ID + '-search-field" class="' + ELEMENT_ID +'__search-field" type="search" placeholder="Search GIPHY">',
+            '  <button id="js-' + ELEMENT_ID + '-search-button" class="' + ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--search" type="button" title="Search GIPHY">',
+            '    <img src="' + images.iconsearch20x20 + '" alt="" aria-hidden="true">',
+            '  </button>',
+            '  <button id="js-' + ELEMENT_ID + '-shuffle-button" class="' + ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--shuffle" type="button" title="Shuffle gifs based on the current search term">',
+            '    Shuffle',
+            '  </button>',
+            '</div>',
+        ];
 
-        var $searchLabel = $('<label>')
-            .attr({
-                class: 'visually-hidden',
-                for: ELEMENT_ID + '-search-field',
-            }).text('Enter a search term');
+        return content.map(function(str) {
+            return str.trim();
+        }).join('');
 
-        var $searchField = $('<input>').attr({
-            id: ELEMENT_ID + '-search-field',
-            class: ELEMENT_ID + '__search-field',
-            type: 'search',
-            placeholder: 'Search GIPHY',
-        });
+    }
 
-        var $searchButton = $('<button>').attr({
-            class: ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--search',
-            type: 'button',
-            title: 'Search GIPHY',
-        }).html('<img src="' + images.iconsearch20x20 + '" alt="" aria-hidden="true">');
+    function _handleSearch() {
 
-        var $shuffleButton = $('<button>').attr({
-            class: ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--shuffle',
-            type: 'button',
-            title: 'Shuffle gifs based on the current search term',
-        }).text('Shuffle');
-
+        var hasClickedSearch = false;
         var searchVal = '';
+
+        var $gifContainer = $('#js-' + ELEMENT_ID + '-gif');
+        var $searchField = $('#js-' + ELEMENT_ID + '-search-field');
+        var $searchButton = $('#js-' + ELEMENT_ID + '-search-button');
+        var $shuffleButton = $('#js-' + ELEMENT_ID + '-shuffle-button');
+
+        $shuffleButton.hide();
+
+        function _generateRandomGif(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function _handleFetch() {
+            _fetchGifs(searchVal, function(gifs) {
+                $gifContainer.html(_generateRandomGif(gifs));
+            });
+        }
 
         $searchButton.on('click', function() {
 
@@ -145,36 +156,25 @@
 
             if (searchVal !== currentVal) {
 
+                hasClickedSearch = true;
                 searchVal = currentVal;
 
                 $gifContainer.height(210);
 
-                _fetchGifs(searchVal, function(gifs) {
-                    $gifContainer.html(_generateRandomGif(gifs));
-                });
+                _handleFetch();
 
+            }
+
+            if (hasClickedSearch) {
+                $shuffleButton.show();
             }
 
         });
 
         $shuffleButton.on('click', function() {
-
-            var currentVal = $searchField.val();
-
-            if (searchVal === currentVal) {
-                _fetchGifs($searchField.val(), function(gifs) {
-                    $gifContainer.html(_generateRandomGif(gifs));
-                });
-            }
-
+            searchVal = $searchField.val();
+            _handleFetch();
         });
-
-        return $('<div>')
-            .append($gifContainer)
-            .append($searchLabel)
-            .append($searchField)
-            .append($searchButton)
-            .append($shuffleButton);
 
     }
 
@@ -195,7 +195,7 @@
 
                 $.each(data, function(index, giphy) {
 
-                    var $newImage = $('<img>').attr({
+                    var $newImage = $('<img>', {
                         'alt': '',
                         'src': giphy.images.fixed_height.url,
                     });
@@ -212,10 +212,6 @@
             console.error('Unable to call the GIPHY API: ' + error + ', ' + textStatus);
         });
 
-    }
-
-    function _generateRandomGif(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
     }
 
     function _insertGif(img) {
