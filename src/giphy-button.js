@@ -9,8 +9,6 @@
 (function() {
 
     var PLUGIN_ID = 'giphy_button';
-    var ELEMENT_ID = 'giphy-button';
-    var DIALOG_ID = 'js-' + ELEMENT_ID + '-dialog';
     var GIPHY_API = 'https://api.giphy.com/v1/gifs/search';
 
     var settings = {};
@@ -64,14 +62,33 @@
         var $editorControls = $('.controls .visual-editor, .controls .bbcode-editor');
         var $imageButton = $editorControls.find('[data-control="insertImage"]');
 
+        var $gifButtonImage = $('<img>', {
+            'src': '',
+            'alt': '',
+        });
+
+        var selectedImage = settings.button_image;
+
+        if (settings.button_custom_image.length) {
+            $gifButtonImage.attr('src', settings.button_custom_image);
+        } else if (selectedImage === 'button_cool') {
+            $gifButtonImage.attr('src', images.buttongiphycool26x22);
+        } else if (selectedImage === 'button_warm') {
+            $gifButtonImage.attr('src', images.buttongiphywarm26x22);
+        } else if (selectedImage === 'button_black') {
+            $gifButtonImage.attr('src', images.buttongiphyicon26x22);
+        } else {
+            $gifButtonImage.attr('src', images.buttongiphypb26x22);
+        }
+
         var $gifButton = $('<li>', {
             'class': 'button button-insertGif',
             'title': 'Insert GIF',
             'data-control': 'insertGif',
-        }).html('<img alt="" src="' + images.buttongiphypb26x22 + '">');
+        }).html($gifButtonImage);
 
         $gifButton.on('click', function() {
-            $('#' + DIALOG_ID).dialog('open');
+            $('#js-giphy-button-dialog').dialog('open');
         });
 
         $imageButton.after($gifButton);
@@ -80,13 +97,13 @@
 
     function _buildDialog() {
 
-        pb.window.dialog(DIALOG_ID, {
+        pb.window.dialog('js-giphy-button-dialog', {
 
             autoOpen: false,
             buttons: {
                 'Insert GIF': function() {
 
-                    var gif = $('#js-' + ELEMENT_ID + '-gif').find('img').attr('src');
+                    var gif = $('#' + GIF_CONTAINER_ID).find('img').attr('src');
 
                     if (gif) {
                         _insertGif(gif);
@@ -109,14 +126,14 @@
     function _buildDialogContent() {
 
         var content = [
-            '<div id="js-' + ELEMENT_ID + '-gif" class="' + ELEMENT_ID + '__gif"></div>',
-            '<div class="' + ELEMENT_ID + '__search">',
-            '  <label class="visually-hidden" for="js-' + ELEMENT_ID + '-search-field">Enter a search term</label>',
-            '  <input id="js-' + ELEMENT_ID + '-search-field" class="' + ELEMENT_ID +'__search-field" type="search" placeholder="Search GIPHY">',
-            '  <button id="js-' + ELEMENT_ID + '-search-button" class="' + ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--search" type="button" title="Search GIPHY">',
+            '<div id="js-giphy-button-gif-container" class="giphy-button__gif-container"></div>',
+            '<div class="giphy-button__search">',
+            '  <label class="visually-hidden" for="js-giphy-button-search-field">Enter a search term</label>',
+            '  <input id="js-giphy-button-search-field" class="giphy-button__search-field" type="search" placeholder="Search GIPHY">',
+            '  <button id="js-giphy-button-search-button" class="giphy-button__button giphy-button__button--search" type="button" title="Search GIPHY">',
             '    <img src="' + images.iconsearch20x20 + '" alt="" aria-hidden="true">',
             '  </button>',
-            '  <button id="js-' + ELEMENT_ID + '-shuffle-button" class="' + ELEMENT_ID + '__button ' + ELEMENT_ID + '__button--shuffle" type="button" title="Shuffle gifs based on the current search term">',
+            '  <button id="js-giphy-button-shuffle-button" class="giphy-button__button giphy-button__button--shuffle" type="button" title="Shuffle gifs based on the current search term">',
             '    Shuffle',
             '  </button>',
             '</div>',
@@ -133,10 +150,10 @@
         var hasClickedSearch = false;
         var searchVal = '';
 
-        var $gifContainer = $('#js-' + ELEMENT_ID + '-gif');
-        var $searchField = $('#js-' + ELEMENT_ID + '-search-field');
-        var $searchButton = $('#js-' + ELEMENT_ID + '-search-button');
-        var $shuffleButton = $('#js-' + ELEMENT_ID + '-shuffle-button');
+        var $gifContainer = $('#js-giphy-button-gif-container');
+        var $searchField = $('#js-giphy-button-search-field');
+        var $searchButton = $('#js-giphy-button-search-button');
+        var $shuffleButton = $('#js-giphy-button-shuffle-button');
 
         $shuffleButton.hide();
 

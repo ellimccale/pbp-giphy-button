@@ -5,7 +5,7 @@
 /* GIF Container
   ========================================================================== */
 
-  .giphy-button__gif {
+  .giphy-button__gif-container {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -17,7 +17,7 @@
   justify-content: flex-start;
 }
 
-.giphy-button__gif > img {
+.giphy-button__gif-container > img {
   height: auto;
   margin-bottom: 10px;
   max-width: 100%;
