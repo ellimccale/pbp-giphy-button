@@ -3,29 +3,8 @@
  * Plugin URI:  http://ellitest.proboards.com
  * Author:      Elli
  * Author URI:  http://ellimccale.com/
- * Version:     0.0.1
+ * Version:     0.0.2
  */
-
-/* ==========================================================================
-   Quick Reply Button
-   ========================================================================== */
-
-.giphy-button__quick-reply,
-.giphy-button__quick-reply:hover,
-.giphy-button__quick-reply:active,
-.giphy-button__quick-reply:focus {
-  background: none;
-  background-color: #0d0d0d;
-  border-color: #0d0d0d;
-  color: #fff;
-}
-
-.giphy-button__quick-reply > img {
-  display: inline-block;
-  padding-right: 6px;
-  vertical-align: text-bottom;
-}
-
 
 /* ==========================================================================
    Dialog Content

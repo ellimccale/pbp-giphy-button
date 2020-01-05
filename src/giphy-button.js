@@ -3,7 +3,7 @@
  * Plugin URI:  http://ellitest.proboards.com
  * Author:      Elli
  * Author URI:  http://ellimccale.com/
- * Version:     0.0.1
+ * Version:     0.0.2
  */
 
 (function() {
@@ -96,15 +96,10 @@
 
         var $replyButton = $('input[name="post"]');
 
-        var $giphyButtonImage = $('<img>', {
-            'src': images.icongiphyicon11x14,
-            'alt': '',
-        });
-
         var $giphyButton= $('<button>', {
-            'class': 'giphy-button__quick-reply',
+            'class': 'ui-button',
             'type': 'button',
-        }).text('Reply with a GIF').prepend($giphyButtonImage);
+        }).text('Reply with a GIF');
 
         _handleClickEvent($giphyButton);
 
@@ -143,6 +138,18 @@
             width: 400,
 
         });
+
+        var $giphyAttr = $('<img>', {
+            'src': images.logopoweredbygiphy200x22,
+            'alt': 'Powered by GIPHY',
+        }).css({
+            'display': 'inline-block',
+            'padding-right': '10px',
+            'vertical-align': 'middle',
+        });
+
+        $('.ui-dialog-buttonset').prepend($giphyAttr);
+            
 
     }
 
@@ -254,15 +261,15 @@
 
     }
 
-    function _insertGif(img) {
+    function _insertGif(url) {
 
         var currentEditor = null;
-        var gif = '[img src="' + img + '" alt=""]';
+        var gif = '[img src="' + url + '" alt=""]';
 
         if (wysiwyg) {
             if (wysiwyg.currentEditorName === 'visual') {
                 currentEditor = wysiwyg.editors['visual'];
-                gif = $('<img src="' + img + '" alt="">', wysiwyg.editors['visual'].document)[0];
+                gif = $('<img src="' + url + '" alt="">', wysiwyg.editors['visual'].document)[0];
             } else {
                 currentEditor = wysiwyg.editors['bbcode'];
             }
