@@ -131,7 +131,7 @@
 .giphy-button__button:hover,
 .giphy-button__button:focus,
 .giphy-button__button:active {
-  background: none;
+  background: #fff;
   border: 1px solid #979797;
   font-size: 14px;
   text-decoration: none;
