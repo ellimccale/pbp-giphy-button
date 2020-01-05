@@ -15,7 +15,9 @@
     var images = {};
 
     var route = pb.data('route');
-    var wysiwyg = null;
+    var hasWysiwyg = null;
+    var hasQuickReply = pb.data('quick_reply');
+    var showQuickReply = null;
 
     function _init() {
         _getSettings();
@@ -43,55 +45,89 @@
             route.name === 'edit_thread'
         );
 
+        showQuickReply = (settings.show_quick_reply === 'true');
+
         if (isPostingPage) {
+
             $(document).on('wysiwygcreate', function(e) {
 
-                wysiwyg = $(e.target).data('wysiwyg');
+                hasWysiwyg = $(e.target).data('wysiwyg');
 
                 _buildButton();
                 _buildDialog();
                 _handleSearch();
 
             });
+
+        } else if (hasQuickReply && showQuickReply) {
+            _buildButton();
+            _buildDialog();
+            _handleSearch();
         }
 
     }
 
     function _buildButton() {
 
-        var $editorControls = $('.controls .visual-editor, .controls .bbcode-editor');
-        var $imageButton = $editorControls.find('[data-control="insertImage"]');
+        var $appendAfterElement = null;
 
         var $gifButtonImage = $('<img>', {
             'src': '',
             'alt': '',
         });
 
-        var selectedImage = settings.button_image;
+        var $gifButton = null;
 
-        if (settings.button_custom_image.length) {
-            $gifButtonImage.attr('src', settings.button_custom_image);
-        } else if (selectedImage === 'button_cool') {
-            $gifButtonImage.attr('src', images.buttongiphycool26x22);
-        } else if (selectedImage === 'button_warm') {
-            $gifButtonImage.attr('src', images.buttongiphywarm26x22);
-        } else if (selectedImage === 'button_black') {
-            $gifButtonImage.attr('src', images.buttongiphyicon26x22);
+        if (hasWysiwyg) {
+
+            var $editorControls = $('.controls .visual-editor, .controls .bbcode-editor');
+            $appendAfterElement = $editorControls.find('[data-control="insertImage"]');
+
+            var selectedImage = settings.button_image;
+
+            if (settings.button_custom_image.length) {
+                $gifButtonImage.attr('src', settings.button_custom_image);
+            } else if (selectedImage === 'button_cool') {
+                $gifButtonImage.attr('src', images.buttongiphycool26x22);
+            } else if (selectedImage === 'button_warm') {
+                $gifButtonImage.attr('src', images.buttongiphywarm26x22);
+            } else if (selectedImage === 'button_black') {
+                $gifButtonImage.attr('src', images.buttongiphyicon26x22);
+            } else {
+                $gifButtonImage.attr('src', images.buttongiphypb26x22);
+            }
+
+            $gifButton = $('<li>', {
+                'class': 'button button-insertGif',
+                'title': 'Insert GIF',
+                'data-control': 'insertGif',
+            }).html($gifButtonImage);
+
+        } else if (hasQuickReply && showQuickReply) {
+
+            $appendAfterElement = $('input[name="post"]');
+
+            $gifButtonImage.attr('src', images.icongiphyicon11x14);
+
+            $gifButton= $('<button>', {
+                'class': 'giphy-button__quick-reply',
+                'type': 'button',
+            }).text('Reply with a GIF').prepend($gifButtonImage);
+
         } else {
-            $gifButtonImage.attr('src', images.buttongiphypb26x22);
+            console.error('No editor found.');
+            return false;
         }
 
-        var $gifButton = $('<li>', {
-            'class': 'button button-insertGif',
-            'title': 'Insert GIF',
-            'data-control': 'insertGif',
-        }).html($gifButtonImage);
+        if ($gifButton) {
 
-        $gifButton.on('click', function() {
-            $('#js-giphy-button-dialog').dialog('open');
-        });
+            $gifButton.on('click', function() {
+                $('#js-giphy-button-dialog').dialog('open');
+            });
 
-        $imageButton.after($gifButton);
+            $appendAfterElement.after($gifButton);
+
+        }
 
     }
 
@@ -103,7 +139,7 @@
             buttons: {
                 'Insert GIF': function() {
 
-                    var gif = $('#' + GIF_CONTAINER_ID).find('img').attr('src');
+                    var gif = $('#js-giphy-button-gif-container').find('img').attr('src');
 
                     if (gif) {
                         _insertGif(gif);
@@ -236,13 +272,15 @@
         var currentEditor = null;
         var gif = '[img src="' + img + '" alt=""]';
 
-        if (wysiwyg) {
-            if (wysiwyg.currentEditorName === 'visual') {
-                currentEditor = wysiwyg.editors['visual'];
-                gif = $('<img src="' + img + '" alt="">', wysiwyg.editors['visual'].document)[0];
+        if (hasWysiwyg) {
+            if (hasWysiwyg.currentEditorName === 'visual') {
+                currentEditor = hasWysiwyg.editors['visual'];
+                gif = $('<img src="' + img + '" alt="">', hasWysiwyg.editors['visual'].document)[0];
             } else {
-                currentEditor = wysiwyg.editors['bbcode'];
+                currentEditor = hasWysiwyg.editors['bbcode'];
             }
+        } else if (hasQuickReply && showQuickReply) {
+            currentEditor = $('.form_post_quick_reply').find('textarea[name="message"]');
         }
 
         if (currentEditor) {

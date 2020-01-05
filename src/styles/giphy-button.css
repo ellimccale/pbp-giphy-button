@@ -2,10 +2,30 @@
   GIPHY Button - Styles
   ========================================================================== */
 
+/* Quick Reply Button
+    ========================================================================== */
+
+.giphy-button__quick-reply,
+.giphy-button__quick-reply:hover,
+.giphy-button__quick-reply:active,
+.giphy-button__quick-reply:focus {
+  background: none;
+  background-color: #0d0d0d;
+  border-color: #0d0d0d;
+  color: #fff;
+}
+
+.giphy-button__quick-reply > img {
+  display: inline-block;
+  padding-right: 6px;
+  vertical-align: text-bottom;
+}
+
+
 /* GIF Container
   ========================================================================== */
 
-  .giphy-button__gif-container {
+.giphy-button__gif-container {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -24,7 +44,7 @@
 }
 
 
-/* GIF Search
+/* Search
     ========================================================================== */
 
 .giphy-button__search {
@@ -69,7 +89,7 @@
   border-top-color: #ff0090;
 }
 
-/* --- Buttons --- */
+/* --- Dialog Buttons --- */
 
 .giphy-button__button {
   -webkit-appearance: none;
