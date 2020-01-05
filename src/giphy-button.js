@@ -37,7 +37,7 @@
     function _onDocumentReady() {
 
         showQuickReply = (settings.show_quick_reply === 'true');
-        
+
         if (quickReply && showQuickReply) {
             _buildQuickReplyButton();
             _buildDialog();
@@ -46,11 +46,11 @@
             $(document).on('wysiwygcreate', function(e) {
 
                 wysiwyg = $(e.target).data('wysiwyg');
-    
+
                 _buildEditorButton();
                 _buildDialog();
                 _handleSearch();
-    
+
             });
         }
 
