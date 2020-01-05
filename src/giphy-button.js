@@ -14,9 +14,8 @@
     var settings = {};
     var images = {};
 
-    var route = pb.data('route');
-    var hasWysiwyg = null;
-    var hasQuickReply = pb.data('quick_reply');
+    var wysiwyg = null;
+    var quickReply = pb.data('quick_reply');
     var showQuickReply = null;
 
     function _init() {
@@ -37,98 +36,86 @@
 
     function _onDocumentReady() {
 
-        var isPostingPage = (
-            route.name === 'quote_posts' ||
-            route.name === 'new_post'    ||
-            route.name === 'new_thread'  ||
-            route.name === 'edit_post'   ||
-            route.name === 'edit_thread'
-        );
-
         showQuickReply = (settings.show_quick_reply === 'true');
-
-        if (isPostingPage) {
-
-            $(document).on('wysiwygcreate', function(e) {
-
-                hasWysiwyg = $(e.target).data('wysiwyg');
-
-                _buildButton();
-                _buildDialog();
-                _handleSearch();
-
-            });
-
-        } else if (hasQuickReply && showQuickReply) {
-            _buildButton();
+        
+        if (quickReply && showQuickReply) {
+            _buildQuickReplyButton();
             _buildDialog();
             _handleSearch();
+        } else {
+            $(document).on('wysiwygcreate', function(e) {
+
+                wysiwyg = $(e.target).data('wysiwyg');
+    
+                _buildEditorButton();
+                _buildDialog();
+                _handleSearch();
+    
+            });
         }
 
     }
 
-    function _buildButton() {
+    function _buildEditorButton() {
 
-        var $appendAfterElement = null;
+        var $editorControls = $('.controls .visual-editor, .controls .bbcode-editor');
+        var $editorImageButton = $editorControls.find('[data-control="insertImage"]');
 
-        var $gifButtonImage = $('<img>', {
+        var $giphyButtonImage = $('<img>', {
             'src': '',
             'alt': '',
         });
 
-        var $gifButton = null;
+        var selectedImage = settings.button_image;
 
-        if (hasWysiwyg) {
-
-            var $editorControls = $('.controls .visual-editor, .controls .bbcode-editor');
-            $appendAfterElement = $editorControls.find('[data-control="insertImage"]');
-
-            var selectedImage = settings.button_image;
-
-            if (settings.button_custom_image.length) {
-                $gifButtonImage.attr('src', settings.button_custom_image);
-            } else if (selectedImage === 'button_cool') {
-                $gifButtonImage.attr('src', images.buttongiphycool26x22);
-            } else if (selectedImage === 'button_warm') {
-                $gifButtonImage.attr('src', images.buttongiphywarm26x22);
-            } else if (selectedImage === 'button_black') {
-                $gifButtonImage.attr('src', images.buttongiphyicon26x22);
-            } else {
-                $gifButtonImage.attr('src', images.buttongiphypb26x22);
-            }
-
-            $gifButton = $('<li>', {
-                'class': 'button button-insertGif',
-                'title': 'Insert GIF',
-                'data-control': 'insertGif',
-            }).html($gifButtonImage);
-
-        } else if (hasQuickReply && showQuickReply) {
-
-            $appendAfterElement = $('input[name="post"]');
-
-            $gifButtonImage.attr('src', images.icongiphyicon11x14);
-
-            $gifButton= $('<button>', {
-                'class': 'giphy-button__quick-reply',
-                'type': 'button',
-            }).text('Reply with a GIF').prepend($gifButtonImage);
-
+        if (settings.button_custom_image.length) {
+            $giphyButtonImage.attr('src', settings.button_custom_image);
+        } else if (selectedImage === 'button_cool') {
+            $giphyButtonImage.attr('src', images.buttongiphycool26x22);
+        } else if (selectedImage === 'button_warm') {
+            $giphyButtonImage.attr('src', images.buttongiphywarm26x22);
+        } else if (selectedImage === 'button_black') {
+            $giphyButtonImage.attr('src', images.buttongiphyicon26x22);
         } else {
-            console.error('No editor found.');
-            return false;
+            $giphyButtonImage.attr('src', images.buttongiphypb26x22);
         }
 
-        if ($gifButton) {
+        var $giphyButton = $('<li>', {
+            'class': 'button button-insertGif',
+            'title': 'Insert GIF',
+            'data-control': 'insertGif',
+        }).html($giphyButtonImage);
 
-            $gifButton.on('click', function() {
-                $('#js-giphy-button-dialog').dialog('open');
-            });
+        _handleClickEvent($giphyButton);
 
-            $appendAfterElement.after($gifButton);
+        $editorImageButton.after($giphyButton);
 
-        }
+    }
 
+    function _buildQuickReplyButton() {
+
+        var $replyButton = $('input[name="post"]');
+
+        var $giphyButtonImage = $('<img>', {
+            'src': images.icongiphyicon11x14,
+            'alt': '',
+        });
+
+        $giphyButton= $('<button>', {
+            'class': 'giphy-button__quick-reply',
+            'type': 'button',
+        }).text('Reply with a GIF').prepend($giphyButtonImage);
+
+        _handleClickEvent($giphyButton);
+
+        $replyButton.after($giphyButton);
+
+    }
+
+    function _handleClickEvent(button) {
+        button.on('click', function() {
+            $('#js-giphy-button-dialog').dialog('open');
+        });
     }
 
     function _buildDialog() {
@@ -139,10 +126,10 @@
             buttons: {
                 'Insert GIF': function() {
 
-                    var gif = $('#js-giphy-button-gif-container').find('img').attr('src');
+                    var imgSrc = $('#js-giphy-button-gif-container').find('img').attr('src');
 
-                    if (gif) {
-                        _insertGif(gif);
+                    if (imgSrc) {
+                        _insertGif(imgSrc);
                         $(this).dialog('close');
                     }
 
@@ -244,20 +231,20 @@
 
             if (meta.status === 200) {
 
-                var gifs = [];
+                var gifArr = [];
 
                 $.each(data, function(index, giphy) {
 
-                    var $newImage = $('<img>', {
+                    var $eachImage = $('<img>', {
                         'alt': '',
                         'src': giphy.images.fixed_height.url,
                     });
 
-                    gifs.push($newImage);
+                    gifArr.push($eachImage);
 
                 });
 
-                storeGifs(gifs);
+                storeGifs(gifArr);
 
             }
 
@@ -272,14 +259,14 @@
         var currentEditor = null;
         var gif = '[img src="' + img + '" alt=""]';
 
-        if (hasWysiwyg) {
-            if (hasWysiwyg.currentEditorName === 'visual') {
-                currentEditor = hasWysiwyg.editors['visual'];
-                gif = $('<img src="' + img + '" alt="">', hasWysiwyg.editors['visual'].document)[0];
+        if (wysiwyg) {
+            if (wysiwyg.currentEditorName === 'visual') {
+                currentEditor = wysiwyg.editors['visual'];
+                gif = $('<img src="' + img + '" alt="">', wysiwyg.editors['visual'].document)[0];
             } else {
-                currentEditor = hasWysiwyg.editors['bbcode'];
+                currentEditor = wysiwyg.editors['bbcode'];
             }
-        } else if (hasQuickReply && showQuickReply) {
+        } else if (quickReply && showQuickReply) {
             currentEditor = $('.form_post_quick_reply').find('textarea[name="message"]');
         }
 
