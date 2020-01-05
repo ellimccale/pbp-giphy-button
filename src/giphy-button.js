@@ -101,7 +101,7 @@
             'alt': '',
         });
 
-        $giphyButton= $('<button>', {
+        var $giphyButton= $('<button>', {
             'class': 'giphy-button__quick-reply',
             'type': 'button',
         }).text('Reply with a GIF').prepend($giphyButtonImage);
