@@ -58,10 +58,12 @@
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-family: Verdana, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: 0.025em;
   height: 36px;
+  margin: 0;
   padding: 10px;
   vertical-align: top;
 }
@@ -95,6 +97,7 @@
   display: inline-block;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  font-family: Verdana, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: 0.025em;
@@ -112,7 +115,9 @@
 .giphy-button__button:active {
   background: #fff;
   border: 1px solid #979797;
+  font-family: Verdana, Arial, sans-serif;
   font-size: 14px;
+  font-weight: normal;
   text-decoration: none;
 }
 

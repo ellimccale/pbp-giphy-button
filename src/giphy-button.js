@@ -114,6 +114,13 @@
     }
 
     function _buildDialog() {
+        
+        var $giphyAttr = $('<p>Powered by GIPHY</p>').css({
+            'display': 'inline-block',
+            'opacity': '0.5',
+            'padding-right': '20px',
+            'vertical-align': 'middle',
+        });
 
         pb.window.dialog('js-giphy-button-dialog', {
 
@@ -137,19 +144,24 @@
             title: 'Insert GIF',
             width: 400,
 
-        });
+            open: function(e, ui) {
 
-        var $giphyAttr = $('<img>', {
-            'src': images.logopoweredbygiphy200x22,
-            'alt': 'Powered by GIPHY',
-        }).css({
-            'display': 'inline-block',
-            'padding-right': '10px',
-            'vertical-align': 'middle',
-        });
+                $(this).css({
+                    '-webkit-box-sizing': 'border-box',
+                    'box-sizing': 'border-box',
+                    'height': '268px',
+                    'padding': '10px',
+                });
+        
+                var $buttonPane = $(this).siblings('.ui-dialog-buttonpane').find('.ui-dialog-buttonset');
+        
+                if (!$buttonPane.find($giphyAttr).length) {
+                    $buttonPane.prepend($giphyAttr);
+                }
 
-        $('.ui-dialog-buttonset').prepend($giphyAttr);
-            
+            },
+
+        });
 
     }
 

@@ -1,4 +1,4 @@
-# GIPHY Button 0.0.2
+# GIPHY Button 0.0.3
 A plugin built with the free forum software [ProBoards](https://proboards.com/) that adds a new button to the WYSIWYG and Quick Reply editors, which can be used to search GIPHY and insert a gif into your post.
 
 ## Installation
