@@ -3,7 +3,7 @@
  * Plugin URI:  http://ellitest.proboards.com
  * Author:      Elli
  * Author URI:  http://ellimccale.com/
- * Version:     0.0.2
+ * Version:     0.1.0
  */
 
 /* ==========================================================================
@@ -13,182 +13,183 @@
 /* GIF Container
    ========================================================================== */
 
-.giphy-button__gif-container {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: flex-start;
-  -ms-flex-pack: flex-start;
-  justify-content: flex-start;
-}
-
-.giphy-button__gif-container > img {
-  height: auto;
-  margin-bottom: 10px;
-  max-width: 100%;
-}
-
-
-/* Search Container
-   ========================================================================== */
-
-.giphy-button__search {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.giphy-button__search-field {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: #fff;
-  border: 1px solid #979797;
-  border-right-width: 0;
-  border-radius: 3px 0 0 3px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #222;
-  display: inline-block;
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: normal;
-  letter-spacing: 0.025em;
-  height: 36px;
-  margin: 0;
-  padding: 10px;
-  vertical-align: top;
-}
-
-.giphy-button__search-field::placeholder {
-  color: #a8a8a8;
-}
-
-.giphy-button__search-field:active,
-.giphy-button__search-field:focus {
-  border-bottom-color: #bb00ff;
-  border-left-color: #bb00ff;
-  border-top-color: #ff0090;
-}
-
-
-/* Buttons
-   ========================================================================== */
-
-.giphy-button__button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: #fff;
-  border: 1px solid #979797;
-  border-radius: 3px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #222;
-  cursor: pointer;
-  display: inline-block;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: normal;
-  letter-spacing: 0.025em;
-  padding: 10px;
-  height: 36px;
-  line-height: 1 !important;
-  margin: 0;
-  min-height: auto;
-  text-decoration: none;
-  vertical-align: top;
-}
-
-.giphy-button__button:hover,
-.giphy-button__button:focus,
-.giphy-button__button:active {
-  background: #fff;
-  border: 1px solid #979797;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: normal;
-  text-decoration: none;
-}
-
-/* --- Search Button --- */
-
-.giphy-button__button--search {
-  background: #ff0090;
-  background: -moz-linear-gradient(45deg, #bb00ff 0%, #ff0090 100%);
-  background: -webkit-linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
-  background: linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
-  border: 0;
-  border-radius: 0 3px 3px 0;
-  padding: 8px 8px 8px 9px;
-}
-
-.giphy-button__button--search:hover,
-.giphy-button__button--search:focus,
-.giphy-button__button--search:active {
-  background: #ff0090;
-  background: -moz-linear-gradient(45deg, #bb00ff 0%, #ff0090 100%);
-  background: -webkit-linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
-  background: linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
-  border: 0;
-}
-
-/* --- Shuffle Button --- */
-
-.giphy-button__button--shuffle {
-  margin-left: 10px;
-  -webkit-transition: border 0.2s ease, color 0.2s ease;
-  -o-transition: border 0.2s ease, color 0.2s ease;
-  transition: border 0.2s ease, color 0.2s ease;
-}
-
-.giphy-button__button--shuffle:hover,
-.giphy-button__button--shuffle:focus,
-.giphy-button__button--shuffle:active {
-  border-bottom-color: #bb00ff;
-  border-left-color: #bb00ff;
-  border-right-color: #ff0090;
-  border-top-color: #ff0090;
-  color: #ff0090;
-}
-
-
-/* ==========================================================================
-   ARIA Visually Hidden Text
-   ========================================================================== */
-
-/**
-  * Hides content to visual users, but leaves it accessible to screen reader
-  * users. The combination of these properties will ensure that the element
-  * is truly hidden and not getting smushed in the corner of the screen.
-  * 
-  * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
-  * 
-  * 1. For long content, line feeds are not interpreted as spaces and small
-  *    width causes content to wrap 1 word per line:
-  * 
-  *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
-  */
-
-.visually-hidden {
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute !important;
-  white-space: nowrap; /* 1 */
-  width: 1px;
-}
+   .giphy-button__gif-container {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: flex-start;
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .giphy-button__gif-container > img {
+    height: auto;
+    margin-bottom: 10px;
+    max-width: 100%;
+  }
+  
+  
+  /* Search Container
+     ========================================================================== */
+  
+  .giphy-button__search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  
+  .giphy-button__search-field {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff;
+    border: 1px solid #979797;
+    border-right-width: 0;
+    border-radius: 3px 0 0 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #222;
+    display: inline-block;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0.025em;
+    height: 36px;
+    margin: 0;
+    padding: 10px;
+    vertical-align: top;
+  }
+  
+  .giphy-button__search-field::placeholder {
+    color: #a8a8a8;
+  }
+  
+  .giphy-button__search-field:active,
+  .giphy-button__search-field:focus {
+    border-bottom-color: #bb00ff;
+    border-left-color: #bb00ff;
+    border-top-color: #ff0090;
+  }
+  
+  
+  /* Buttons
+     ========================================================================== */
+  
+  .giphy-button__button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff;
+    border: 1px solid #979797;
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #222;
+    cursor: pointer;
+    display: inline-block;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0.025em;
+    padding: 10px;
+    height: 36px;
+    line-height: 1 !important;
+    margin: 0;
+    min-height: auto;
+    text-decoration: none;
+    vertical-align: top;
+  }
+  
+  .giphy-button__button:hover,
+  .giphy-button__button:focus,
+  .giphy-button__button:active {
+    background: #fff;
+    border: 1px solid #979797;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    text-decoration: none;
+  }
+  
+  /* --- Search Button --- */
+  
+  .giphy-button__button--search {
+    background: #ff0090;
+    background: -moz-linear-gradient(45deg, #bb00ff 0%, #ff0090 100%);
+    background: -webkit-linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+    background: linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+    border: 0;
+    border-radius: 0 3px 3px 0;
+    padding: 8px 8px 8px 9px;
+  }
+  
+  .giphy-button__button--search:hover,
+  .giphy-button__button--search:focus,
+  .giphy-button__button--search:active {
+    background: #ff0090;
+    background: -moz-linear-gradient(45deg, #bb00ff 0%, #ff0090 100%);
+    background: -webkit-linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+    background: linear-gradient(45deg, #bb00ff 0%,#ff0090 100%);
+    border: 0;
+  }
+  
+  /* --- Shuffle Button --- */
+  
+  .giphy-button__button--shuffle {
+    margin-left: 10px;
+    -webkit-transition: border 0.2s ease, color 0.2s ease;
+    -o-transition: border 0.2s ease, color 0.2s ease;
+    transition: border 0.2s ease, color 0.2s ease;
+  }
+  
+  .giphy-button__button--shuffle:hover,
+  .giphy-button__button--shuffle:focus,
+  .giphy-button__button--shuffle:active {
+    border-bottom-color: #bb00ff;
+    border-left-color: #bb00ff;
+    border-right-color: #ff0090;
+    border-top-color: #ff0090;
+    color: #ff0090;
+  }
+  
+  
+  /* ==========================================================================
+     ARIA Visually Hidden Text
+     ========================================================================== */
+  
+  /**
+    * Hides content to visual users, but leaves it accessible to screen reader
+    * users. The combination of these properties will ensure that the element
+    * is truly hidden and not getting smushed in the corner of the screen.
+    * 
+    * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+    * 
+    * 1. For long content, line feeds are not interpreted as spaces and small
+    *    width causes content to wrap 1 word per line:
+    * 
+    *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+    */
+  
+  .visually-hidden {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    white-space: nowrap; /* 1 */
+    width: 1px;
+  }
+  
