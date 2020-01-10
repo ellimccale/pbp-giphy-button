@@ -10,5 +10,8 @@ A plugin built with the free forum software [ProBoards](https://proboards.com/) 
 6. Navigate to and select the giphy-button.pbp file
 7. Once the plugin has been imported, click the "Finished" button near the bottom right of the modal dialog window
 
+**NOTE:**
+> Visit the API tab to set your own API key if you expect that your forum will use this plugin regularly.
+
 ## Acknowledgements
 Special thanks to [Peter](http://support.proboards.com/user/2671) for his help with handling the WYSIWYG!
