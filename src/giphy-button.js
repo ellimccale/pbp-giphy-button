@@ -117,7 +117,7 @@
         
         var $giphyAttr = $('<p>Powered by GIPHY</p>').css({
             'display': 'inline-block',
-            'opacity': '0.5',
+            'opacity': '0.75',
             'padding-right': '20px',
             'vertical-align': 'middle',
         });
@@ -240,7 +240,7 @@
     function _fetchGifs(searchTerm, storeGifs) {
 
         $.getJSON(GIPHY_API, {
-            api_key: 'Mpj7IqNxtW6QbpDx61TAjA9pe88I1z3d',
+            api_key: settings.api_key || 'Mpj7IqNxtW6QbpDx61TAjA9pe88I1z3d',
             q: searchTerm,
             limit: 20,
         }).done(function(response) {
